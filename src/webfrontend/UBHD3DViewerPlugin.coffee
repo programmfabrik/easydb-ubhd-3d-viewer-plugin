@@ -27,7 +27,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 			"src": "/api/v1/plugin/static/extension/ubhd-3d-viewer-plugin/3dhopiframe.html?asset="+@asset.value.versions.original.url
 		});
 		obj.appendChild(iframe)
-
+		CUI.dom.append(@outerDiv, obj)
 
 
 ez5.session_ready =>
