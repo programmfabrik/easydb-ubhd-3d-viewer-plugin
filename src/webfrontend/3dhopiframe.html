@@ -1,0 +1,50 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!--STYLESHEET-->
+  <link type="text/css" rel="stylesheet" href="3dhop.css"/>
+  <script type="text/javascript" src="spidergl.js"></script>
+  <!--JQUERY-->
+  <script type="text/javascript" src="jquery.js"></script>
+  <!--PRESENTER-->
+  <script type="text/javascript" src="presenter.js"></script>
+  <!--3D MODELS LOADING AND RENDERING-->
+  <script type="text/javascript" src="nexus.js"></script>
+  <script type="text/javascript" src="ply.js"></script>
+  <!--TRACKBALLS-->
+  <script type="text/javascript" src="trackball_sphere.js"></script>
+  <script type="text/javascript" src="trackball_turntable.js"></script>
+  <script type="text/javascript" src="trackball_turntable_pan.js"></script>
+  <script type="text/javascript" src="trackball_pantilt.js"></script>
+  <!--UTILITY-->
+  <script type="text/javascript" src="init.js"></script>
+  <script type="text/javascript">
+    var presenter = null;
+    
+    function setup3dhop(asseturl) {
+            presenter = new Presenter("draw-canvas");
+    
+            presenter.setScene({
+                    meshes: {
+                            "mesh1" : { url: asseturl }
+                    },
+                    modelInstances : {
+                            "Model1" : { mesh : "mesh1" }
+                    }
+            });
+    }
+    
+    $(document).ready(function(){
+            var asseturl = window.location.search.substring(7);
+            init3dhop();
+            setup3dhop(asseturl);
+    })
+  </script>
+</head>
+<body>
+  <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
+    <div id="tdhlg"></div>
+    <canvas id="draw-canvas"/>
+  </div>
+</body>
+</html>

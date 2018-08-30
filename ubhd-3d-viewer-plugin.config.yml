@@ -1,0 +1,14 @@
+plugin:
+  name: ubhd-3d-viewer-plugin
+  version: 1.0
+  url: https://github.com/programmfabrik/easydb-ubhd-3d-viewer-plugin
+  displayname:
+    de-DE: 3D-Viewer Plugin
+    en-US: 3D-Viewer Plugin
+  info:
+    de-DE: "3D-Viewer basierend auf 3DHOP"
+    en-US: "3D viewer based on 3DHOP"
+  webfrontend:
+    url: ubhd-3d-viewer-plugin.js
+    l10n: l10n/
+    css: ubhd-3d-viewer-plugin.css
