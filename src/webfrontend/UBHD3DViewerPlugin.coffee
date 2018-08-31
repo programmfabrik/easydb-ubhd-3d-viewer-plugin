@@ -1,7 +1,7 @@
 class UBHD3DViewerPlugin extends AssetDetail
 	getButtonLocaKey: (asset) ->
 		console.debug "class extension", asset.value.class_extension
-		if asset.value.class_extension != "vector3d.ply"
+		if asset.value.class_extension != "vector3d.ply" and asset.value.class_extension != "unknown.nxz"
 			return
 
 		huge = asset.value.versions.huge

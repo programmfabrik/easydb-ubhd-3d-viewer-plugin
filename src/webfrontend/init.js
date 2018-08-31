@@ -25,7 +25,7 @@ function init3dhop() {
 	var interval, id, ismousedown;
 	var button = 0;
 
-	$('#toolbar img')
+	$('#toolbar div')
 		.mouseenter(function(e) {
 			id = $(this).attr('id');
 			if(!ismousedown) $(this).css("opacity","0.8");

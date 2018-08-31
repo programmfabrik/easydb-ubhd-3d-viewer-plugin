@@ -3,6 +3,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!--STYLESHEET-->
   <link type="text/css" rel="stylesheet" href="3dhop.css"/>
+  <!--STYLESHEET which is also used by easydb -->
+  <link rel="stylesheet" type="text/css" href="/web/css/font-awesome/css/font-awesome.min.css">
   <script type="text/javascript" src="spidergl.js"></script>
   <!--JQUERY-->
   <script type="text/javascript" src="jquery.js"></script>
@@ -33,6 +35,20 @@
                     }
             });
     }
+
+    function actionsToolbar(action) {
+        if(action=='home') presenter.resetTrackball();
+        //--ZOOM--
+        else if(action=='zoomin') presenter.zoomIn();
+        else if(action=='zoomout') presenter.zoomOut();
+        //--ZOOM--
+        //--LIGHTING--
+        else if(action=='lighting' || action=='lighting_off') { presenter.enableSceneLighting(!presenter.isSceneLightingEnabled()); lightingSwitch(); }
+        //--LIGHTING--
+        //--LIGHT--
+        else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
+        //--LIGHT--
+    }
     
     $(document).ready(function(){
             var asseturl = window.location.search.substring(7);
@@ -44,6 +60,16 @@
 <body>
   <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
     <div id="tdhlg"></div>
+    <div id="toolbar">
+      <!--ZOOM-->
+      <div id="zoomin" title="Zoom In"><span class="fa fa-search-plus"></span></div>
+      <div id="zoomout" title="Zoom Out"><span class="fa fa-search-minus"></span></div>
+      <!--ZOOM-->
+      <!--LIGHT-->
+      <div id="light_on" title="Disable Light Control" style="position:absolute; visibility:hidden; color: #F8F800; font-weight: bold; background-color: #C0C0C0;"><span class="fa fa-lightbulb-o" ></span></div>
+      <div id="light" title="Enable Light Control"><span class="fa fa-lightbulb-o"></span></div>
+      <!--LIGHT-->
+    </div>
     <canvas id="draw-canvas"/>
   </div>
 </body>
