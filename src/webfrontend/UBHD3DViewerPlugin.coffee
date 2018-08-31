@@ -9,6 +9,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 
 		if huge?.status != "done"
 			console.log('no huge')
+#			TODO: use huge.url instead of original.url
 #			return
 
 		"ubhd.asset.detail.360degrees"
@@ -20,18 +21,18 @@ class UBHD3DViewerPlugin extends AssetDetail
 
 		obj = CUI.dom.element("div", id: "ubhd3d")
 
+		plugin = ez5.pluginManager.getPlugin("ubhd-3d-viewer-plugin")
+		pluginStaticUrl = plugin.getBaseURL()
 		iframe = CUI.dom.element("iframe", {
 			id: "ubhd3diframe",
 			"frameborder": "0",
 			"scrolling": "no",
-			"src": "/api/v1/plugin/static/extension/ubhd-3d-viewer-plugin/3dhopiframe.html?asset="+@asset.value.versions.original.url
+			"src": pluginStaticUrl+"/3dhopiframe.html?asset="+@asset.value.versions.original.url
 		});
 		obj.appendChild(iframe)
 		CUI.dom.append(@outerDiv, obj)
 
 
 ez5.session_ready =>
-	plugin = ez5.pluginManager.getPlugin("ubhd-3d-viewer-plugin")
-
 	AssetBrowser.plugins.registerPlugin(UBHD3DViewerPlugin)
 	ez5.pluginManager.getPlugin("ubhd-3d-viewer-plugin").loadCss()
