@@ -1,23 +1,42 @@
 class UBHD3DViewerPlugin extends AssetDetail
+	__easUrl: (asset) ->
+		eas_url = ''
+		isNexus = 0
+		for version in asset.values
+			# Viewer anbieten, wenn
+			# Version im Nexus-Format
+			if version.class_extension == 'unknown.nxs' or version.class_extension == 'unknown.nxz'
+				eas_url = version.versions.original.url
+				isNexus = 1
+			else
+				# Viewer anbieten, wenn
+				# Version ply-Format mit Namen "preview_version" 
+				if version.class_extension == 'vector3d.ply' and version.name == 'preview_version'
+					eas_url = version.versions.original.url
+		return Array(eas_url,isNexus)
+
+
 	getButtonLocaKey: (asset) ->
-		console.debug "class extension", asset.value.class_extension
-		if asset.value.class_extension != "vector3d.ply"
+		#console.debug asset
+		eU = this.__easUrl(asset)
+		eas_url = eU[0]
+		isNexus = eU[1]
+		if eas_url == ''
+			console.log('no 3d viewer format')
 			return
-
-		huge = asset.value.versions.huge
-		console.log(asset.value.versions)
-
-		if huge?.status != "done"
-			console.log('no huge')
-#			TODO: use huge.url instead of original.url
-#			return
 
 		"ubhd.asset.detail.360degrees"
 
 
 	createMarkup: ->
-		# console.debug "creatingMarkup", @
+		console.debug "creatingMarkup", @
 		super()
+		eU = this.__easUrl(@asset)
+		eas_url = eU[0]
+		isNexus = eU[1]
+		if eas_url == ''
+			console.log('no 3d viewer format')
+			return
 
 		obj = CUI.dom.element("div", id: "ubhd3d")
 
@@ -27,7 +46,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 			id: "ubhd3diframe",
 			"frameborder": "0",
 			"scrolling": "no",
-			"src": pluginStaticUrl+"/3dhopiframe.html?asset="+@asset.value.versions.original.url
+			"src": pluginStaticUrl+"/3dhopiframe.html?nexus="+isNexus+"&asset="+eas_url
 		});
 		obj.appendChild(iframe)
 		CUI.dom.append(@outerDiv, obj)

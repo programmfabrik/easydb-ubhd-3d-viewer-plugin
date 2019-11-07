@@ -3,6 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!--STYLESHEET-->
   <link type="text/css" rel="stylesheet" href="3dhop.css"/>
+  <link type="text/css" rel="stylesheet" href="3dhop_ubhd.css"/>
   <!--STYLESHEET which is also used by easydb -->
   <link rel="stylesheet" type="text/css" href="/web/css/font-awesome/css/font-awesome.min.css">
   <script type="text/javascript" src="spidergl.js"></script>
@@ -23,17 +24,18 @@
   <script type="text/javascript">
     var presenter = null;
     
-    function setup3dhop(asseturl) {
+    function setup3dhop(isNexus,asseturl) {
             presenter = new Presenter("draw-canvas");
     
             presenter.setScene({
                     meshes: {
-                            "mesh1" : { url: asseturl }
+                            "mesh1" : { url: asseturl, isNexus: isNexus == 1 ? true : false }
                     },
                     modelInstances : {
                             "Model1" : { mesh : "mesh1" }
                     }
             });
+            presenter._onEndMeasurement = onEndMeasure;
     }
 
     function actionsToolbar(action) {
@@ -48,12 +50,21 @@
         //--LIGHT--
         else if(action=='light' || action=='light_on') { presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); }
         //--LIGHT--
+        //--MEASURE--
+        else if(action=='measure' || action=='measure_on') { presenter.enableMeasurementTool(!presenter.isMeasurementToolEnabled()); measureSwitch(); }
+        //--MEASURE--
+    }
+
+    function onEndMeasure(distance) {
+        var decimalClipper = 100; // 10 = 1 decimal, 100 = 2 decimals, 1000 = 3 decimals
+        $('#measure-output').html(Math.round(distance*decimalClipper)/decimalClipper);
     }
     
     $(document).ready(function(){
-            var asseturl = window.location.search.substring(7);
+            var isNexus = window.location.search.substr(7,1)
+            var asseturl = window.location.search.substring(15);
             init3dhop();
-            setup3dhop(asseturl);
+            setup3dhop(isNexus,asseturl);
     })
   </script>
 </head>
@@ -61,6 +72,8 @@
   <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
     <div id="tdhlg"></div>
     <div id="toolbar">
+      <!--HOME-->
+      <div id="home" title="Home"><span class="fa fa-home"></span></div>
       <!--ZOOM-->
       <div id="zoomin" title="Zoom In"><span class="fa fa-search-plus"></span></div>
       <div id="zoomout" title="Zoom Out"><span class="fa fa-search-minus"></span></div>
@@ -69,6 +82,15 @@
       <div id="light_on" title="Disable Light Control" style="position:absolute; visibility:hidden; color: #F8F800; font-weight: bold; background-color: #C0C0C0;"><span class="fa fa-lightbulb-o" ></span></div>
       <div id="light" title="Enable Light Control"><span class="fa fa-lightbulb-o"></span></div>
       <!--LIGHT-->
+      <!--MEASURE-->
+      <div id="measure_on" title="Disable Measure Tool" style="position:absolute; visibility:hidden; color: #F8F800; font-weight: bold; background-color: #C0C0C0;"><span class="fa fa-calculator" ></span></div>
+      <div id="measure" title="Enable Measure Tool"><span class="fa fa-calculator"></span></div>
+      <!--MEASURE-->
+    </div>
+
+    <div id="measure-box" class="output-box">
+        Measured length<hr/>
+        <span id="measure-output" class="output-text" onmousedown="event.stopPropagation()">0.0</span>
     </div>
     <canvas id="draw-canvas"/>
   </div>

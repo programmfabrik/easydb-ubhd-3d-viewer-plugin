@@ -11,7 +11,9 @@ INSTALL_FILES = \
 EXTRA_FILES = \
         $(WEB)/3dhopiframe.html \
         $(WEB)/3dhop.css \
+        $(WEB)/3dhop_ubhd.css \
         $(WEB)/spidergl.js \
+        $(WEB)/corto.js \
         $(WEB)/presenter.js \
         $(WEB)/jquery.js \
         $(WEB)/nexus.js \

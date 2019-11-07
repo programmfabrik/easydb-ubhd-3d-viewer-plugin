@@ -2889,7 +2889,7 @@ setScene : function (options) {
 		var mesh = scene.meshes[m];
 
 		if (!mesh.url) continue;
-		if((String(mesh.url).lastIndexOf(".nxs") == (String(mesh.url).length - 4))||(String(mesh.url).lastIndexOf(".nxz") == (String(mesh.url).length - 4))) {
+		if(mesh.isNexus||(String(mesh.url).lastIndexOf(".nxs") == (String(mesh.url).length - 4))||(String(mesh.url).lastIndexOf(".nxz") == (String(mesh.url).length - 4))) {
 			Nexus.setTargetError(gl, this._nexusTargetError);
 			Nexus.setTargetFps(gl, this._nexusTargetFps);
 			Nexus.setMaxCacheSize(gl, this._nexusCacheSize);
