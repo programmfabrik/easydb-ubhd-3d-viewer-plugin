@@ -13,29 +13,27 @@ class UBHD3DViewerPlugin extends AssetDetail
 				# Version ply-Format mit Namen "preview_version" 
 				if version.class_extension == 'vector3d.ply' and version.name == 'preview_version'
 					eas_url = version.versions.original.url
+			if eas_url == ''
+				console.log('no 3d viewer format')
 		return Array(eas_url,isNexus)
 
 
 	getButtonLocaKey: (asset) ->
-		#console.debug asset
 		eU = this.__easUrl(asset)
 		eas_url = eU[0]
 		isNexus = eU[1]
 		if eas_url == ''
-			console.log('no 3d viewer format')
 			return
 
 		"ubhd.asset.detail.360degrees"
 
 
 	createMarkup: ->
-		console.debug "creatingMarkup", @
 		super()
 		eU = this.__easUrl(@asset)
 		eas_url = eU[0]
 		isNexus = eU[1]
 		if eas_url == ''
-			console.log('no 3d viewer format')
 			return
 
 		obj = CUI.dom.element("div", id: "ubhd3d")
