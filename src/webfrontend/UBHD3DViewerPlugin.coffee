@@ -19,6 +19,8 @@ class UBHD3DViewerPlugin extends AssetDetail
 
 
 	getButtonLocaKey: (asset) ->
+		console.log('getButtonLocaKey')
+		console.log(asset)
 		eU = this.__easUrl(asset)
 		eas_url = eU[0]
 		isNexus = eU[1]
