@@ -6,13 +6,19 @@ class UBHD3DViewerPlugin extends AssetDetail
 			# Viewer anbieten, wenn
 			# Version im Nexus-Format
 			if version.class_extension == 'unknown.nxs' or version.class_extension == 'unknown.nxz'
-				eas_url = version.versions.original.url
-				isNexus = 1
+				if typeof version.versions.original.url != 'undefined'
+					eas_url = version.versions.original.url
+					isNexus = 1
+				else
+					console.log('3d format not allowed')
 			else
 				# Viewer anbieten, wenn
 				# Version ply-Format mit Namen "preview_version" 
 				if version.class_extension == 'vector3d.ply' and version.name == 'preview_version'
-					eas_url = version.versions.original.url
+					if typeof version.versions.original.url != 'undefined'
+						eas_url = version.versions.original.url
+					else
+						console.log('3d format not allowed')
 			if eas_url == ''
 				console.log('no 3d viewer format')
 		return Array(eas_url,isNexus)
