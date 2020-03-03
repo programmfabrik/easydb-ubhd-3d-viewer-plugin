@@ -2,7 +2,8 @@ class UBHD3DViewerPlugin extends AssetDetail
 	__easUrl: (asset) ->
 		eas_url = ''
 		isNexus = 0
-		for version in asset.values
+		#for version in asset.values
+		for version in asset.getSiblingsFromData()
 			# Viewer anbieten, wenn
 			# Version im Nexus-Format
 			if version.class_extension == 'unknown.nxs' or version.class_extension == 'unknown.nxz'
@@ -21,12 +22,15 @@ class UBHD3DViewerPlugin extends AssetDetail
 						console.log('3d format not allowed')
 			if eas_url == ''
 				console.log('no 3d viewer format')
+			else
+				console.log('3d viewer format found') 
 		return Array(eas_url,isNexus)
 
 
 	getButtonLocaKey: (asset) ->
-		console.log('getButtonLocaKey')
-		console.log(asset)
+		#console.log('getButtonLocaKey')
+		#console.log(asset)
+		#console.log(asset.getSiblingsFromData())
 		eU = this.__easUrl(asset)
 		eas_url = eU[0]
 		isNexus = eU[1]
@@ -34,6 +38,9 @@ class UBHD3DViewerPlugin extends AssetDetail
 			return
 
 		"ubhd.asset.detail.360degrees"
+
+	startAutomatically: ->
+		true
 
 
 	createMarkup: ->
