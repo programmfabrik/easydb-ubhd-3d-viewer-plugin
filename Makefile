@@ -10,6 +10,7 @@ INSTALL_FILES = \
 
 EXTRA_FILES = \
         $(WEB)/3dhopiframe.html \
+        $(WEB)/threeiframe.html \
         $(WEB)/3dhop.css \
         $(WEB)/3dhop_ubhd.css \
         $(WEB)/spidergl.js \
@@ -23,6 +24,10 @@ EXTRA_FILES = \
         $(WEB)/trackball_turntable_pan.js \
         $(WEB)/trackball_pantilt.js \
         $(WEB)/init.js \
+        $(WEB)/ziploader.min.js \
+        $(WEB)/three.js \
+        $(WEB)/OrbitControls.js \
+        $(WEB)/GLTFLoader.js \
 
 
 # XXX: unavailable languages
