@@ -5,7 +5,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 		for version in asset.getSiblingsFromData()
 			# Viewer anbieten, wenn
 			# Version im Nexus-Format
-			if version.class_extension == 'unknown.nxs' or version.class_extension == 'unknown.nxz'
+			if version.class_extension == 'vector3d.nxs' or version.class_extension == 'vector3d.nxz'
 				if typeof version.versions.original.url != 'undefined'
 					eas_url = version.versions.original.url
 					type = 'nexus'
