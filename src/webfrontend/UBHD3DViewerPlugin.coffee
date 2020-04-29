@@ -27,6 +27,10 @@ class UBHD3DViewerPlugin extends AssetDetail
 							type = 'gltf'
 						else
 							console.log('3d format not allowed')
+					else
+						if version.class_extension == 'unknown.glb' and typeof version.versions.original.url != 'undefined'
+							eas_url = version.versions.original.url
+							type = 'gltf'
 			if eas_url == ''
 				console.log('no 3d viewer format')
 			else
