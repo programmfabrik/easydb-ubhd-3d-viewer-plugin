@@ -21,6 +21,8 @@ class UBHD3DViewerPlugin extends AssetDetail
 					else
 						console.log('3d format not allowed')
 				else
+					# Viewer anbieten, wenn
+					# Version zip-Format mit Namen "gltf"
 					if version.name == 'gltf' and version.class_extension == 'archive.zip'
 						if typeof version.versions.original.download_url != 'undefined'
 							eas_url = version.versions.original.download_url
@@ -28,7 +30,9 @@ class UBHD3DViewerPlugin extends AssetDetail
 						else
 							console.log('3d format not allowed')
 					else
-						if version.class_extension == 'unknown.glb' and typeof version.versions.original.url != 'undefined'
+						# Viewer anbieten, wenn
+						# Version im glb-Format
+						if version.class_extension == 'vector3d.glb' and typeof version.versions.original.url != 'undefined'
 							eas_url = version.versions.original.url
 							type = 'gltf'
 			if eas_url == ''
