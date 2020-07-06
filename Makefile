@@ -11,19 +11,20 @@ INSTALL_FILES = \
 EXTRA_FILES = \
         $(WEB)/3dhopiframe.html \
         $(WEB)/threeiframe.html \
-        $(WEB)/3dhop.css \
+        $(WEB)/3DHOP/minimal/stylesheet/3dhop.css \
         $(WEB)/3dhop_ubhd.css \
-        $(WEB)/spidergl.js \
-        $(WEB)/corto.js \
-        $(WEB)/presenter.js \
-        $(WEB)/jquery.js \
-        $(WEB)/nexus.js \
-        $(WEB)/ply.js \
-        $(WEB)/trackball_sphere.js \
-        $(WEB)/trackball_turntable.js \
-        $(WEB)/trackball_turntable_pan.js \
-        $(WEB)/trackball_pantilt.js \
-        $(WEB)/init.js \
+        $(WEB)/3DHOP/minimal/js/spidergl.js \
+        $(WEB)/3DHOP/minimal/js/corto.js \
+        $(WEB)/3DHOP/minimal/js/corto.em.js \
+        $(WEB)/3DHOP/minimal/js/presenter.js \
+        $(WEB)/3DHOP/minimal/js/jquery.js \
+        $(WEB)/3DHOP/minimal/js/nexus.js \
+        $(WEB)/3DHOP/minimal/js/ply.js \
+        $(WEB)/3DHOP/minimal/js/trackball_sphere.js \
+        $(WEB)/3DHOP/minimal/js/trackball_turntable.js \
+        $(WEB)/3DHOP/minimal/js/trackball_turntable_pan.js \
+        $(WEB)/3DHOP/minimal/js/trackball_pantilt.js \
+        $(WEB)/init_3dhop_easydb.js \
         $(WEB)/ziploader.min.js \
         $(WEB)/three.js \
         $(WEB)/OrbitControls.js \

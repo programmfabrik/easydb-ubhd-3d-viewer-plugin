@@ -2,25 +2,25 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!--STYLESHEET-->
-  <link type="text/css" rel="stylesheet" href="3dhop.css"/>
+  <link type="text/css" rel="stylesheet" href="3DHOP/minimal/stylesheet/3dhop.css"/>
   <link type="text/css" rel="stylesheet" href="3dhop_ubhd.css"/>
   <!--STYLESHEET which is also used by easydb -->
   <link rel="stylesheet" type="text/css" href="/web/css/font-awesome/css/font-awesome.min.css">
-  <script type="text/javascript" src="spidergl.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/spidergl.js"></script>
   <!--JQUERY-->
-  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/jquery.js"></script>
   <!--PRESENTER-->
-  <script type="text/javascript" src="presenter.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/presenter.js"></script>
   <!--3D MODELS LOADING AND RENDERING-->
-  <script type="text/javascript" src="nexus.js"></script>
-  <script type="text/javascript" src="ply.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/nexus.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/ply.js"></script>
   <!--TRACKBALLS-->
-  <script type="text/javascript" src="trackball_sphere.js"></script>
-  <script type="text/javascript" src="trackball_turntable.js"></script>
-  <script type="text/javascript" src="trackball_turntable_pan.js"></script>
-  <script type="text/javascript" src="trackball_pantilt.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/trackball_sphere.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/trackball_turntable.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/trackball_turntable_pan.js"></script>
+  <script type="text/javascript" src="3DHOP/minimal/js/trackball_pantilt.js"></script>
   <!--UTILITY-->
-  <script type="text/javascript" src="init.js"></script>
+  <script type="text/javascript" src="init_3dhop_easydb.js"></script>
   <script type="text/javascript">
     var presenter = null;
     
@@ -29,7 +29,7 @@
     
             presenter.setScene({
                     meshes: {
-                            "mesh1" : { url: asseturl, isNexus: isNexus == 1 ? true : false }
+                            "mesh1" : { url: asseturl, mType: isNexus == 1 ? 'nexus' : 'ply' }
                     },
                     modelInstances : {
                             "Model1" : { mesh : "mesh1" }
@@ -39,6 +39,7 @@
     }
 
     function actionsToolbar(action) {
+	console.log('action',action)
         if(action=='home') presenter.resetTrackball();
         //--ZOOM--
         else if(action=='zoomin') presenter.zoomIn();
