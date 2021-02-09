@@ -29,10 +29,27 @@
     
             presenter.setScene({
                     meshes: {
-                            "mesh1" : { url: asseturl, mType: isNexus == 1 ? 'nexus' : 'ply' }
+                      "mesh1" : { url: asseturl, mType: isNexus == 1 ? 'nexus' : 'ply' }
                     },
                     modelInstances : {
-                            "Model1" : { mesh : "mesh1" }
+                      "Model1" : { mesh : "mesh1" }
+                    },
+                    trackball: {
+                      type: TurntablePanTrackball,
+                      trackOptions: {
+                        startPhi: 0.0,
+                        startTheta: 0.0,
+                        startDistance: 2.5,
+                        startPanX: 0.0,
+                        startPanY: 0.0,
+                        startPanZ: 0.0,
+                        minMaxPhi: [-180, 180],
+                        minMaxTheta: [-10.0, 50.0],
+                        minMaxDist: [0.5, 5.0],
+                        minMaxPanX: [-3.0, 3.0],
+                        minMaxPanY: [-1.5, 1.5],
+                        minMaxPanZ: [-1.0, 1.0]
+                      }
                     }
             });
             presenter._onEndMeasurement = onEndMeasure;
