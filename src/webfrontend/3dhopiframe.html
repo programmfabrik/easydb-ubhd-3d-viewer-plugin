@@ -45,7 +45,7 @@
                         startPanZ: 0.0,
                         minMaxPhi: [-180, 180],
                         minMaxTheta: [-10.0, 50.0],
-                        minMaxDist: [0.5, 5.0],
+                        minMaxDist: [0.1, 5.0],
                         minMaxPanX: [-3.0, 3.0],
                         minMaxPanY: [-1.5, 1.5],
                         minMaxPanZ: [-1.0, 1.0]
@@ -89,6 +89,7 @@
 <body>
   <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
     <div id="tdhlg"></div>
+    <div id="move" style="left: 20px; bottom: 30px; position: absolute; font-size: 10px; font-family: verdana; font-style: italic; color: #909090;">Use right mouse button to move the model.</div>
     <div id="toolbar">
       <!--HOME-->
       <div id="home" title="Home"><span class="fa fa-home"></span></div>
