@@ -3,6 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <!--STYLESHEET-->
   <link type="text/css" rel="stylesheet" href="3DHOP/minimal/stylesheet/3dhop.css"/>
+  <link type="text/css" rel="stylesheet" href="3DHOP/minimal/stylesheet/3dhop_panels.css"/>
   <link type="text/css" rel="stylesheet" href="3dhop_ubhd.css"/>
   <!--STYLESHEET which is also used by easydb -->
   <link rel="stylesheet" type="text/css" href="/web/css/font-awesome/css/font-awesome.min.css">
@@ -71,6 +72,9 @@
         //--MEASURE--
         else if(action=='measure' || action=='measure_on') { presenter.enableMeasurementTool(!presenter.isMeasurementToolEnabled()); measureSwitch(); }
         //--MEASURE--
+        //--HELP--
+        else if(action=='help' || action=='help_on') { showPanel('help_panel'); helpSwitch(); }
+        //--HELP--
     }
 
     function onEndMeasure(distance) {
@@ -90,6 +94,28 @@
   <div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()">
     <div id="tdhlg"></div>
     <div id="move" style="left: 20px; bottom: 30px; position: absolute; font-size: 10px; font-family: verdana; font-style: italic; color: #909090;">Use right mouse button to move the model.</div>
+
+      <table id="cover" onclick="$('#cover').css('display', 'none'); helpSwitch(false);">
+      <tr align="center"><td valign="center">
+      <!--HELP PANEL-->
+      <table class="panel" id="help_panel" cellspacing="10" onclick="event.stopPropagation();">
+      <tbody>
+      <tr><td colspan="6"><h3><img class="close_on" src="close_on.png" onclick="$('#cover').css('display', 'none'); helpSwitch(false);"/><img class="close" src="close.png"/>3DHOP Help</h3><hr></td></tr>
+      <tr><td colspan="2" style="width:33%;padding-bottom:0;">Rotate</td><td  colspan="2" style="width:33%;padding-bottom:0;">Zoom</td><td  colspan="2" style="width:33%;padding-bottom:0;">Pan</td></tr>
+      <tr><td colspan="2"><img src="left.png" width="30"/></td><td colspan="2"><img src="wheel.png" width="30"/></td><td colspan="2"><img src="right.png" width="30"/></td></tr>
+      <tr><td colspan="2" style="padding-top:0;">Left Button + Move</td><td colspan="2" style="padding-top:0;">Mouse Wheel</td><td colspan="2" style="padding-top:0;">Right Button + Move</td></tr>
+      <tr><td colspan="6"><hr></td></tr>
+      
+      <tr><td style="width:15%"><div class="toolhelp"><span class="fa fa-home"></span></div></td><td colspan="2" style="width:30%">Reset View</td><td style="width:15%"><div class="toolhelp"><span class="fa fa-lightbulb-o" ></span></div></td><td colspan="2" style="width:30%">Toggle Light Control</td></tr>
+      <tr><td><div class="toolhelp"><span class="fa fa-search-plus"></span></div></td><td colspan="2">Zoom In</td><td><div class="toolhelp"><span class="fa fa-search-minus"></span></div></td><td colspan="2">Zoom Out</td></tr>
+      <tr><td><div class="toolhelp"><span class="fa fa-calculator"></span></div></td><td colspan="2">Toggle Measure Tool</td><td></td><td colspan="2"></td></tr>
+      <tr><td colspan="6"></td></tr>
+      </tbody>
+      </table>
+      <!--HELP PANEL ENDS-->
+      </td></tr>
+      </table>
+
     <div id="toolbar">
       <!--HOME-->
       <div id="home" title="Home"><span class="fa fa-home"></span></div>
@@ -105,6 +131,10 @@
       <div id="measure_on" title="Disable Measure Tool" style="position:absolute; visibility:hidden; color: #F8F800; font-weight: bold; background-color: #C0C0C0;"><span class="fa fa-calculator" ></span></div>
       <div id="measure" title="Enable Measure Tool"><span class="fa fa-calculator"></span></div>
       <!--MEASURE-->
+      <!--HELP-->
+      <div id="help_on" title="Hide Help" style="position:absolute; visibility:hidden; color: #F8F800; font-weight: bold; background-color: #C0C0C0;"><span class="fa fa-question"></span></div>
+      <div id="help" title="Show Help"><span class="fa fa-question"></span></div>
+      <!--HELP-->
     </div>
 
     <div id="measure-box" class="output-box">

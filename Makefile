@@ -11,7 +11,13 @@ INSTALL_FILES = \
 EXTRA_FILES = \
         $(WEB)/3dhopiframe.html \
         $(WEB)/threeiframe.html \
+        $(WEB)/right.png \
+        $(WEB)/left.png \
+        $(WEB)/wheel.png \
+        $(WEB)/close.png \
+        $(WEB)/close_on.png \
         $(WEB)/3DHOP/minimal/stylesheet/3dhop.css \
+        $(WEB)/3DHOP/minimal/stylesheet/3dhop_panels.css \
         $(WEB)/3dhop_ubhd.css \
         $(WEB)/3DHOP/minimal/js/spidergl.js \
         $(WEB)/3DHOP/minimal/js/corto.js \
