@@ -1,12 +1,12 @@
-PLUGIN_NAME = ubhd-3d-viewer-plugin
+PLUGIN_NAME = easydb-ubhd-3d-viewer-plugin
 
 INSTALL_FILES = \
 	$(WEB)/l10n/cultures.json \
 	$(WEB)/l10n/de-DE.json \
 	$(WEB)/l10n/en-US.json \
 	$(CSS) \
-	$(WEB)/ubhd-3d-viewer-plugin.js \
-	ubhd-3d-viewer-plugin.config.yml
+	$(WEB)/easydb-ubhd-3d-viewer-plugin.js \
+	easydb-ubhd-3d-viewer-plugin.config.yml
 
 EXTRA_FILES = \
         $(WEB)/3dhopiframe.html \
@@ -41,11 +41,11 @@ EXTRA_FILES = \
 #	$(WEB)/l10n/es-ES.json \
 #	$(WEB)/l10n/it-IT.json \
 
-L10N_FILES = l10n/ubhd-3d-viewer-plugin.csv
+L10N_FILES = l10n/easydb-ubhd-3d-viewer-plugin.csv
 
-CSS = $(WEB)/ubhd-3d-viewer-plugin.css
+CSS = $(WEB)/easydb-ubhd-3d-viewer-plugin.css
 
-SCSS_FILES = src/webfrontend/ubhd-3d-viewer-plugin.scss
+SCSS_FILES = src/webfrontend/easydb-ubhd-3d-viewer-plugin.scss
 
 COFFEE_FILES = \
 	src/webfrontend/UBHD3DViewerPlugin.coffee

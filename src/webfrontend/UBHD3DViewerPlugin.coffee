@@ -65,7 +65,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 
 		obj = CUI.dom.element("div", id: "ubhd3d")
 
-		plugin = ez5.pluginManager.getPlugin("ubhd-3d-viewer-plugin")
+		plugin = ez5.pluginManager.getPlugin("easydb-ubhd-3d-viewer-plugin")
 		pluginStaticUrl = plugin.getBaseURL()
 		if type == 'nexus' or type == 'ply'
 			isNexus = 0
@@ -90,4 +90,4 @@ class UBHD3DViewerPlugin extends AssetDetail
 
 ez5.session_ready =>
 	AssetBrowser.plugins.registerPlugin(UBHD3DViewerPlugin)
-	ez5.pluginManager.getPlugin("ubhd-3d-viewer-plugin").loadCss()
+	ez5.pluginManager.getPlugin("easydb-ubhd-3d-viewer-plugin").loadCss()
