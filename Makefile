@@ -6,7 +6,7 @@ INSTALL_FILES = \
 	$(WEB)/l10n/en-US.json \
 	$(CSS) \
 	$(WEB)/easydb-ubhd-3d-viewer-plugin.js \
-	easydb-ubhd-3d-viewer-plugin.config.yml
+	manifest.yml
 
 EXTRA_FILES = \
         $(WEB)/3dhopiframe.html \
