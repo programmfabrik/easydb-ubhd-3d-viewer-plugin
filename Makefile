@@ -50,20 +50,12 @@ SCSS_FILES = src/webfrontend/easydb-ubhd-3d-viewer-plugin.scss
 COFFEE_FILES = \
 	src/webfrontend/UBHD3DViewerPlugin.coffee
 
-call_scss = sass --scss --no-cache --sourcemap=inline
-
 all: build
 
 include easydb-library/tools/base-plugins.make
 
 build: code css $(EXTRA_FILES)
 
-$(CSS): $(SCSS_FILES)
-	mkdir -p $(dir $@)
-	cat $(SCSS_FILES) | $(call_scss) > $(CSS)
-
 code: $(JS) $(L10N)
-
-css: $(CSS)
 
 clean: clean-base
