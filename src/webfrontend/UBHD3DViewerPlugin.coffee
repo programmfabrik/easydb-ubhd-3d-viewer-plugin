@@ -6,8 +6,8 @@ class UBHD3DViewerPlugin extends AssetDetail
 			# Viewer anbieten, wenn
 			# Version im Nexus-Format
 			if version.class_extension == 'vector3d.nxs' or version.class_extension == 'vector3d.nxz'
-				if typeof version.versions.original.url != 'undefined'
-					eas_url = version.versions.original.url
+				if typeof version.versions.original?.url != 'undefined'
+					eas_url = version.versions.original?.url
 					type = 'nexus'
 				else
 					console.log('3d format not allowed')
@@ -15,8 +15,8 @@ class UBHD3DViewerPlugin extends AssetDetail
 				# Viewer anbieten, wenn
 				# Version ply-Format mit Namen "preview_version" 
 				if version.class_extension == 'vector3d.ply' and version.name == 'preview_version'
-					if typeof version.versions.original.url != 'undefined'
-						eas_url = version.versions.original.url
+					if typeof version.versions.original?.url != 'undefined'
+						eas_url = version.versions.original?.url
 						type = 'ply'
 					else
 						console.log('3d format not allowed')
@@ -24,16 +24,16 @@ class UBHD3DViewerPlugin extends AssetDetail
 					# Viewer anbieten, wenn
 					# Version zip-Format mit Namen "gltf"
 					if version.name == 'gltf' and version.class_extension == 'archive.zip'
-						if typeof version.versions.original.download_url != 'undefined'
-							eas_url = version.versions.original.download_url
+						if typeof version.versions.original?.download_url != 'undefined'
+							eas_url = version.versions.original?.download_url
 							type = 'gltf'
 						else
 							console.log('3d format not allowed')
 					else
 						# Viewer anbieten, wenn
 						# Version im glb-Format
-						if version.class_extension == 'vector3d.glb' and typeof version.versions.original.url != 'undefined'
-							eas_url = version.versions.original.url
+						if version.class_extension == 'vector3d.glb' and typeof version.versions.original?.url != 'undefined'
+							eas_url = version.versions.original?.url
 							type = 'gltf'
 			if eas_url == ''
 				console.log('no 3d viewer format')
