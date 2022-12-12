@@ -1,6 +1,6 @@
 plugin:
   name: easydb-ubhd-3d-viewer-plugin
-  version: 1.0
+  version: 1.1
   url: https://github.com/programmfabrik/easydb-ubhd-3d-viewer-plugin
   displayname:
     de-DE: 3D-Viewer Plugin
