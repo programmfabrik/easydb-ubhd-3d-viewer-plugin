@@ -4,6 +4,8 @@ class UBHD3DViewerPlugin extends AssetDetail
 		assetInfo =
 			type: null
 			url: null
+			extension: null
+			defaults: '' 
 
 		if not asset
 			return assetInfo
@@ -27,6 +29,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 				assetInfo.type = 'nexus'
 				if typeof version.versions.original?.url != 'undefined'
 					assetInfo.url = version.versions.original?.url
+					assetInfo.extension = version.versions.original?.extension
 				else
 					console.log('3d format not allowed')
 			else
@@ -36,6 +39,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 					assetInfo.type = 'ply'
 					if typeof version.versions.original?.url != 'undefined'
 						assetInfo.url = version.versions.original?.url
+						assetInfo.extension = version.versions.original?.extension
 					else
 						console.log('3d format not allowed')
 				else
@@ -45,6 +49,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 						assetInfo.type = 'gltf'
 						if typeof version.versions.original?.download_url != 'undefined'
 							assetInfo.url = version.versions.original?.download_url
+							assetInfo.extension = version.versions.original?.extension
 						else
 							console.log('3d format not allowed')
 					else
@@ -54,7 +59,9 @@ class UBHD3DViewerPlugin extends AssetDetail
 							assetInfo.type = 'gltf'
 							if typeof version.versions.original?.url != 'undefined'
 								assetInfo.url = version.versions.original?.url
-
+								assetInfo.extension = version.versions.original?.extension
+			if version.original_filename == '3D_viewer.json'
+				assetInfo.defaults = version.versions.original?.url
 		return assetInfo
 
 
@@ -118,12 +125,21 @@ class UBHD3DViewerPlugin extends AssetDetail
 				"src": pluginStaticUrl+"/3dhopiframe.html?nexus="+isNexus+"&asset="+assetInfo.url
 			});
 		else
-			iframe = CUI.dom.element("iframe", {
-				id: "threeiframe",
-				"frameborder": "0",
-				"scrolling": "no",
-				"src": pluginStaticUrl+"/threeiframe.html?asset="+assetInfo.url
-			});
+			if assetInfo.defaults
+				iframe = CUI.dom.element("iframe", {
+					id: "threeiframe",
+					"frameborder": "0",
+					"scrolling": "no",
+					"src": pluginStaticUrl+"/threeiframe.html?asset="+assetInfo.url+"."+assetInfo.extension+"&config="+assetInfo.defaults
+				});
+			else
+                                iframe = CUI.dom.element("iframe", {
+                                        id: "threeiframe",
+                                        "frameborder": "0",
+                                        "scrolling": "no",
+                                        "src": pluginStaticUrl+"/threeiframe.html?asset="+assetInfo.url+"."+assetInfo.extension
+                                });
+
 		viewerDiv.appendChild(iframe)
 		CUI.dom.append(@outerDiv, viewerDiv)
 

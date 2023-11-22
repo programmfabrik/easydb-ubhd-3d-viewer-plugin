@@ -35,6 +35,8 @@ EXTRA_FILES = \
         $(WEB)/three.js \
         $(WEB)/OrbitControls.js \
         $(WEB)/GLTFLoader.js \
+        $(WEB)/ubhd-3d-viewer.js \
+        $(WEB)/ubhd-3d-viewer.css \
 
 
 # XXX: unavailable languages
