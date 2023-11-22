@@ -31,5 +31,14 @@ The plugin expects assets in the **binary form of the glTF format (.glb)** (http
 Alternatively it is possible to put a **glTF file (.gltf)** (https://en.wikipedia.org/wiki/GlTF) together with other files (texture etc.) into a zip file. To indicate that a zip archive contains a 3D object in GLTF format, the corresponding asset version must have the name "gltf".
 
 ## TODOs
+### Common
+ * [ ] adaption to fylr
 
-At the moment we are working on extending the three.js based viewer (adding controls (e.g. for the different lighting types) as well as being able to save default settings per asset (position of the camera, position of the light source, illuminance levels) and pass them to the viewer.
+### three.js based viewer
+ * [x] add controls
+ * [ ] add hints for mouse controls
+ * [ ] respect default values for camera settings, lighting etc. in gltf/glb files
+ * [ ] respet default values for camera settings, lightning etc. stored in easydb/fylr
+
+### RTI
+ * [ ] add RTI viewer
