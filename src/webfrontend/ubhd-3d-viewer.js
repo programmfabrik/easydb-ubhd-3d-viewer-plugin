@@ -4010,19 +4010,19 @@ class Matrix4 {
     scale.z = sz;
     return this;
   }
-  makePerspective(left, right, top, bottom, near2, far2, coordinateSystem = WebGLCoordinateSystem) {
+  makePerspective(left, right, top, bottom, near, far, coordinateSystem = WebGLCoordinateSystem) {
     const te = this.elements;
-    const x = 2 * near2 / (right - left);
-    const y = 2 * near2 / (top - bottom);
+    const x = 2 * near / (right - left);
+    const y = 2 * near / (top - bottom);
     const a = (right + left) / (right - left);
     const b = (top + bottom) / (top - bottom);
     let c, d;
     if (coordinateSystem === WebGLCoordinateSystem) {
-      c = -(far2 + near2) / (far2 - near2);
-      d = -2 * far2 * near2 / (far2 - near2);
+      c = -(far + near) / (far - near);
+      d = -2 * far * near / (far - near);
     } else if (coordinateSystem === WebGPUCoordinateSystem) {
-      c = -far2 / (far2 - near2);
-      d = -far2 * near2 / (far2 - near2);
+      c = -far / (far - near);
+      d = -far * near / (far - near);
     } else {
       throw new Error("THREE.Matrix4.makePerspective(): Invalid coordinate system: " + coordinateSystem);
     }
@@ -4044,19 +4044,19 @@ class Matrix4 {
     te[15] = 0;
     return this;
   }
-  makeOrthographic(left, right, top, bottom, near2, far2, coordinateSystem = WebGLCoordinateSystem) {
+  makeOrthographic(left, right, top, bottom, near, far, coordinateSystem = WebGLCoordinateSystem) {
     const te = this.elements;
     const w = 1 / (right - left);
     const h = 1 / (top - bottom);
-    const p = 1 / (far2 - near2);
+    const p = 1 / (far - near);
     const x = (right + left) * w;
     const y = (top + bottom) * h;
     let z, zInv;
     if (coordinateSystem === WebGLCoordinateSystem) {
-      z = (far2 + near2) * p;
+      z = (far + near) * p;
       zInv = -2 * p;
     } else if (coordinateSystem === WebGPUCoordinateSystem) {
-      z = near2 * p;
+      z = near * p;
       zInv = -1 * p;
     } else {
       throw new Error("THREE.Matrix4.makeOrthographic(): Invalid coordinate system: " + coordinateSystem);
@@ -7284,14 +7284,14 @@ class Camera extends Object3D {
   }
 }
 class PerspectiveCamera extends Camera {
-  constructor(fov2 = 50, aspect2 = 1, near2 = 0.1, far2 = 2e3) {
+  constructor(fov2 = 50, aspect2 = 1, near = 0.1, far = 2e3) {
     super();
     this.isPerspectiveCamera = true;
     this.type = "PerspectiveCamera";
     this.fov = fov2;
     this.zoom = 1;
-    this.near = near2;
-    this.far = far2;
+    this.near = near;
+    this.far = far;
     this.focus = 10;
     this.aspect = aspect2;
     this.view = null;
@@ -7407,8 +7407,8 @@ class PerspectiveCamera extends Camera {
     this.updateProjectionMatrix();
   }
   updateProjectionMatrix() {
-    const near2 = this.near;
-    let top = near2 * Math.tan(DEG2RAD * 0.5 * this.fov) / this.zoom;
+    const near = this.near;
+    let top = near * Math.tan(DEG2RAD * 0.5 * this.fov) / this.zoom;
     let height = 2 * top;
     let width = this.aspect * height;
     let left = -0.5 * width;
@@ -7422,8 +7422,8 @@ class PerspectiveCamera extends Camera {
     }
     const skew = this.filmOffset;
     if (skew !== 0)
-      left += near2 * skew / this.getFilmWidth();
-    this.projectionMatrix.makePerspective(left, left + width, top, top - height, near2, this.far, this.coordinateSystem);
+      left += near * skew / this.getFilmWidth();
+    this.projectionMatrix.makePerspective(left, left + width, top, top - height, near, this.far, this.coordinateSystem);
     this.projectionMatrixInverse.copy(this.projectionMatrix).invert();
   }
   toJSON(meta) {
@@ -7441,30 +7441,30 @@ class PerspectiveCamera extends Camera {
     return data;
   }
 }
-const fov$1 = -90;
-const aspect$1 = 1;
+const fov = -90;
+const aspect = 1;
 class CubeCamera extends Object3D {
-  constructor(near2, far2, renderTarget) {
+  constructor(near, far, renderTarget) {
     super();
     this.type = "CubeCamera";
     this.renderTarget = renderTarget;
     this.coordinateSystem = null;
-    const cameraPX = new PerspectiveCamera(fov$1, aspect$1, near2, far2);
+    const cameraPX = new PerspectiveCamera(fov, aspect, near, far);
     cameraPX.layers = this.layers;
     this.add(cameraPX);
-    const cameraNX = new PerspectiveCamera(fov$1, aspect$1, near2, far2);
+    const cameraNX = new PerspectiveCamera(fov, aspect, near, far);
     cameraNX.layers = this.layers;
     this.add(cameraNX);
-    const cameraPY = new PerspectiveCamera(fov$1, aspect$1, near2, far2);
+    const cameraPY = new PerspectiveCamera(fov, aspect, near, far);
     cameraPY.layers = this.layers;
     this.add(cameraPY);
-    const cameraNY = new PerspectiveCamera(fov$1, aspect$1, near2, far2);
+    const cameraNY = new PerspectiveCamera(fov, aspect, near, far);
     cameraNY.layers = this.layers;
     this.add(cameraNY);
-    const cameraPZ = new PerspectiveCamera(fov$1, aspect$1, near2, far2);
+    const cameraPZ = new PerspectiveCamera(fov, aspect, near, far);
     cameraPZ.layers = this.layers;
     this.add(cameraPZ);
-    const cameraNZ = new PerspectiveCamera(fov$1, aspect$1, near2, far2);
+    const cameraNZ = new PerspectiveCamera(fov, aspect, near, far);
     cameraNZ.layers = this.layers;
     this.add(cameraNZ);
   }
@@ -9515,7 +9515,7 @@ function WebGLCubeMaps(renderer2) {
   };
 }
 class OrthographicCamera extends Camera {
-  constructor(left = -1, right = 1, top = 1, bottom = -1, near2 = 0.1, far2 = 2e3) {
+  constructor(left = -1, right = 1, top = 1, bottom = -1, near = 0.1, far = 2e3) {
     super();
     this.isOrthographicCamera = true;
     this.type = "OrthographicCamera";
@@ -9525,8 +9525,8 @@ class OrthographicCamera extends Camera {
     this.right = right;
     this.top = top;
     this.bottom = bottom;
-    this.near = near2;
-    this.far = far2;
+    this.near = near;
+    this.far = far;
     this.updateProjectionMatrix();
   }
   copy(source, recursive) {
@@ -9643,12 +9643,12 @@ class PMREMGenerator {
    * and far planes ensure the scene is rendered in its entirety (the cubeCamera
    * is placed at the origin).
    */
-  fromScene(scene2, sigma = 0, near2 = 0.1, far2 = 100) {
+  fromScene(scene2, sigma = 0, near = 0.1, far = 100) {
     _oldTarget = this._renderer.getRenderTarget();
     this._setSize(256);
     const cubeUVRenderTarget = this._allocateTargets();
     cubeUVRenderTarget.depthBuffer = true;
-    this._sceneToCubeUV(scene2, near2, far2, cubeUVRenderTarget);
+    this._sceneToCubeUV(scene2, near, far, cubeUVRenderTarget);
     if (sigma > 0) {
       this._blur(cubeUVRenderTarget, 0, 0, sigma);
     }
@@ -9764,10 +9764,10 @@ class PMREMGenerator {
     const tmpMesh = new Mesh(this._lodPlanes[0], material);
     this._renderer.compile(tmpMesh, _flatCamera);
   }
-  _sceneToCubeUV(scene2, near2, far2, cubeUVRenderTarget) {
+  _sceneToCubeUV(scene2, near, far, cubeUVRenderTarget) {
     const fov2 = 90;
     const aspect2 = 1;
-    const cubeCamera = new PerspectiveCamera(fov2, aspect2, near2, far2);
+    const cubeCamera = new PerspectiveCamera(fov2, aspect2, near, far);
     const upSign = [1, -1, 1, 1, 1, 1];
     const forwardSign = [1, 1, 1, -1, -1, -1];
     const renderer2 = this._renderer;
@@ -15816,14 +15816,14 @@ class WebXRManager extends EventDispatcher {
       const ipd = cameraLPos.distanceTo(cameraRPos);
       const projL = cameraL2.projectionMatrix.elements;
       const projR = cameraR2.projectionMatrix.elements;
-      const near2 = projL[14] / (projL[10] - 1);
-      const far2 = projL[14] / (projL[10] + 1);
+      const near = projL[14] / (projL[10] - 1);
+      const far = projL[14] / (projL[10] + 1);
       const topFov = (projL[9] + 1) / projL[5];
       const bottomFov = (projL[9] - 1) / projL[5];
       const leftFov = (projL[8] - 1) / projL[0];
       const rightFov = (projR[8] + 1) / projR[0];
-      const left = near2 * leftFov;
-      const right = near2 * rightFov;
+      const left = near * leftFov;
+      const right = near * rightFov;
       const zOffset = ipd / (-leftFov + rightFov);
       const xOffset = zOffset * -leftFov;
       cameraL2.matrixWorld.decompose(camera2.position, camera2.quaternion, camera2.scale);
@@ -15831,13 +15831,13 @@ class WebXRManager extends EventDispatcher {
       camera2.translateZ(zOffset);
       camera2.matrixWorld.compose(camera2.position, camera2.quaternion, camera2.scale);
       camera2.matrixWorldInverse.copy(camera2.matrixWorld).invert();
-      const near22 = near2 + zOffset;
-      const far22 = far2 + zOffset;
+      const near2 = near + zOffset;
+      const far2 = far + zOffset;
       const left2 = left - xOffset;
       const right2 = right + (ipd - xOffset);
-      const top2 = topFov * far2 / far22 * near22;
-      const bottom2 = bottomFov * far2 / far22 * near22;
-      camera2.projectionMatrix.makePerspective(left2, right2, top2, bottom2, near22, far22);
+      const top2 = topFov * far / far2 * near2;
+      const bottom2 = bottomFov * far / far2 * near2;
+      camera2.projectionMatrix.makePerspective(left2, right2, top2, bottom2, near2, far2);
       camera2.projectionMatrixInverse.copy(camera2.projectionMatrix).invert();
     }
     function updateCamera(camera2, parent) {
@@ -20414,11 +20414,11 @@ class SpotLightShadow extends LightShadow {
     const camera2 = this.camera;
     const fov2 = RAD2DEG * 2 * light.angle * this.focus;
     const aspect2 = this.mapSize.width / this.mapSize.height;
-    const far2 = light.distance || camera2.far;
-    if (fov2 !== camera2.fov || aspect2 !== camera2.aspect || far2 !== camera2.far) {
+    const far = light.distance || camera2.far;
+    if (fov2 !== camera2.fov || aspect2 !== camera2.aspect || far !== camera2.far) {
       camera2.fov = fov2;
       camera2.aspect = aspect2;
-      camera2.far = far2;
+      camera2.far = far;
       camera2.updateProjectionMatrix();
     }
     super.updateMatrices(light);
@@ -20519,9 +20519,9 @@ class PointLightShadow extends LightShadow {
   updateMatrices(light, viewportIndex = 0) {
     const camera2 = this.camera;
     const shadowMatrix = this.matrix;
-    const far2 = light.distance || camera2.far;
-    if (far2 !== camera2.far) {
-      camera2.far = far2;
+    const far = light.distance || camera2.far;
+    if (far !== camera2.far) {
+      camera2.far = far;
       camera2.updateProjectionMatrix();
     }
     _lightPositionWorld.setFromMatrixPosition(light.matrixWorld);
@@ -21161,21 +21161,12 @@ if (typeof window !== "undefined") {
   }
 }
 let camera$1;
-let fov;
-let aspect;
-let near;
-let far;
 let box;
 function createCamera(model) {
   camera$1 = model.cameras.find((el) => el.isPerspectiveCamera);
   if (!camera$1) {
-    fov = 1;
-    aspect = 1;
-    near = 1e-3;
-    far = 1e3;
-    camera$1 = new PerspectiveCamera(fov, aspect, near, far);
+    camera$1 = new PerspectiveCamera();
   }
-  console.log("[camera.js]", camera$1);
   return camera$1;
 }
 function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera2, scene2) {
@@ -21204,24 +21195,23 @@ function createScene(model) {
     scene$1 = new Scene();
     scene$1.background = new Color(16777215);
   }
-  console.log("[scene.js] scene", scene$1);
   return scene$1;
 }
 let directional;
 let ambient;
 let hemisphere;
-function createDirectionalLight(model) {
+function createDirectionalLight(model, modelConfig2) {
   directional = getDirectionalLight();
   if (!directional) {
     directional = new DirectionalLight(16777215, 0.5);
-    if (model.userData.lights) {
+    if (modelConfig2) {
       directional.position.set(
         model.userData.lights.directional.position.x,
         model.userData.lights.directional.position.y,
         model.userData.lights.directional.position.z
       );
     } else {
-      directional.position.set(50, 50, 50);
+      directional.position.set(5, 5, 5);
     }
     directional.target.position.set(0, 0, 0);
   }
@@ -22976,7 +22966,7 @@ class GUI {
   }
 }
 const GUI$1 = GUI;
-function createGui(model, directionalLight2, ambientLight2) {
+function createGui(model, modelConfig2, directionalLight2, ambientLight2, controls2) {
   const gui = new GUI$1({
     "title": "Controls"
   });
@@ -22987,14 +22977,14 @@ function createGui(model, directionalLight2, ambientLight2) {
     }
   });
   const positionFolder = gui.addFolder("Position");
-  if (model.userData.gui) {
-    positionFolder.add(model.scene.position, "x").min(model.userData.gui.model.position.x.min).max(model.userData.gui.model.position.x.max);
-    positionFolder.add(model.scene.position, "y").min(model.userData.gui.model.position.y.min).max(model.userData.gui.model.position.y.max);
-    positionFolder.add(model.scene.position, "z").min(model.userData.gui.model.position.z.min).max(model.userData.gui.model.position.z.max);
+  if (modelConfig2) {
+    positionFolder.add(model.scene.position, "x").min(model.userData.gui.model.position.x.min).max(model.userData.gui.model.position.x.max).step(0.01);
+    positionFolder.add(model.scene.position, "y").min(model.userData.gui.model.position.y.min).max(model.userData.gui.model.position.y.max).step(0.01);
+    positionFolder.add(model.scene.position, "z").min(model.userData.gui.model.position.z.min).max(model.userData.gui.model.position.z.max).step(0.01);
   } else {
-    positionFolder.add(model.scene.position, "x").min(-20).max(20);
-    positionFolder.add(model.scene.position, "y").min(-20).max(20);
-    positionFolder.add(model.scene.position, "z").min(-20).max(20);
+    positionFolder.add(model.scene.position, "x").min(-5e3).max(5e3).step(0.01);
+    positionFolder.add(model.scene.position, "y").min(-5e3).max(5e3).step(0.01);
+    positionFolder.add(model.scene.position, "z").min(-5e3).max(5e3).step(0.01);
   }
   positionFolder.close();
   const rotationFolder = gui.addFolder("Rotation");
@@ -23003,21 +22993,26 @@ function createGui(model, directionalLight2, ambientLight2) {
   rotationFolder.add(model.scene.rotation, "z").min(model.scene.rotation._z).max(model.scene.rotation._z + 2 * Math.PI).step(1e-3);
   rotationFolder.close();
   const directionalLightFolder = gui.addFolder("Directional Light");
-  if (model.userData.gui) {
-    directionalLightFolder.add(directionalLight2, "intensity").min(0).max(2).step(1e-3);
+  directionalLightFolder.add(directionalLight2, "intensity").min(0).max(2).step(1e-3);
+  if (modelConfig2) {
     directionalLightFolder.add(directionalLight2.target.position, "x").min(model.userData.gui.lights.directional.target.position.x.min).max(model.userData.gui.lights.directional.target.position.x.max).step(1e-3);
     directionalLightFolder.add(directionalLight2.target.position, "y").min(model.userData.gui.lights.directional.target.position.y.min).max(model.userData.gui.lights.directional.target.position.y.max).step(1e-3);
     directionalLightFolder.add(directionalLight2.target.position, "z").min(model.userData.gui.lights.directional.target.position.z.min).max(model.userData.gui.lights.directional.target.position.z.max).step(1e-3);
   } else {
-    directionalLightFolder.add(directionalLight2, "intensity").min(0).max(2).step(1e-3);
-    directionalLightFolder.add(directionalLight2.target.position, "x").min(-20).max(20).step(1e-3);
-    directionalLightFolder.add(directionalLight2.target.position, "y").min(-20).max(20).step(1e-3);
-    directionalLightFolder.add(directionalLight2.target.position, "z").min(-20).max(20).step(1e-3);
+    directionalLightFolder.add(directionalLight2.target.position, "x").min(-50).max(50).step(1e-3);
+    directionalLightFolder.add(directionalLight2.target.position, "y").min(-50).max(50).step(1e-3);
+    directionalLightFolder.add(directionalLight2.target.position, "z").min(-50).max(50).step(1e-3);
   }
   directionalLightFolder.close();
   const ambientLightFolder = gui.addFolder("Ambient Light");
   ambientLightFolder.add(ambientLight2, "intensity").min(0).max(2).step(1e-3);
   ambientLightFolder.close();
+  const obj = {
+    Reset: function() {
+      gui.reset();
+    }
+  };
+  gui.add(obj, "Reset");
   return gui;
 }
 const _changeEvent = { type: "change" };
@@ -23747,7 +23742,7 @@ let directionalLight;
 let ambientLight;
 let hemisphereLight;
 class World {
-  constructor(container, model) {
+  constructor(container, model, modelConfig2) {
     console.log("[world.js] model", model);
     camera = createCamera(model);
     scene = createScene(model);
@@ -23756,7 +23751,7 @@ class World {
     loop = new Loop(camera, scene, renderer);
     container.append(canvas);
     controls = createControls(camera, canvas);
-    directionalLight = createDirectionalLight(model);
+    directionalLight = createDirectionalLight(model, modelConfig2);
     ambientLight = createAmbientLight();
     hemisphereLight = createHemisphereLight();
     loop.updatables.push(controls);
@@ -23765,8 +23760,8 @@ class World {
     scene.add(camera, ambientLight, hemisphereLight);
     new Resizer(container, camera, renderer, canvas);
   }
-  async init(model) {
-    createGui(model, directionalLight, ambientLight);
+  async init(model, modelConfig2) {
+    createGui(model, modelConfig2, directionalLight, ambientLight);
     const { boxSize, boxCenter } = setupCameraPosition(model);
     frameArea(boxSize * 0.5, boxSize, boxCenter, camera, scene);
     controls.maxDistance = boxSize * 100;
@@ -27265,7 +27260,6 @@ function validateURL(url) {
     let validUrl = new URL(url);
     return validUrl;
   } catch (e) {
-    console.log("URL to be validated:", url);
     console.log(e);
     return e;
   }
@@ -27273,8 +27267,6 @@ function validateURL(url) {
 function requirementsFulfilled(assetUrl) {
   let validWindowUrl = validateURL(window.location);
   let validAssetUrl = validateURL(assetUrl);
-  console.log("validAssetUrl", validAssetUrl);
-  console.log("validWindowUrl", validWindowUrl);
   if (validAssetUrl === void 0) {
     console.log("Please specify the path to the asset as URL parameter.");
     return false;
@@ -27333,9 +27325,8 @@ async function main() {
     const model = await loadModel(assetUrl, modelConfig);
     const container = document.querySelector("#scene-container");
     const world = new World(container, model, modelConfig);
-    await world.init(model);
+    await world.init(model, modelConfig);
     world.start();
-    console.log("[main.js] model", model);
   }
 }
 main().catch((err) => {

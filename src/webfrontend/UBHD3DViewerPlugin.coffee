@@ -60,6 +60,16 @@ class UBHD3DViewerPlugin extends AssetDetail
 							if typeof version.versions.original?.url != 'undefined'
 								assetInfo.url = version.versions.original?.url
 								assetInfo.extension = version.versions.original?.extension
+						else
+							# Viewer anbieten, wenn
+							# Version zip-webdvd-Format mit Namen "rti"
+							if version.name == 'rti' and version.class_extension == 'archive.webdvd.zip'
+								assetInfo.type = 'rti'
+								if typeof version.versions.directory?.url != 'undefined'
+									assetInfo.url = version.versions.directory?.url
+									assetInfo.extension = 'rti'
+								else
+									console.log('3d format rti: missing version directory')
 			if version.original_filename == '3D_viewer.json'
 				assetInfo.defaults = version.versions.original?.url
 		return assetInfo
@@ -115,6 +125,7 @@ class UBHD3DViewerPlugin extends AssetDetail
 		plugin = ez5.pluginManager.getPlugin("easydb-ubhd-3d-viewer-plugin")
 		pluginStaticUrl = plugin.getBaseURL()
 		if assetInfo.type == 'nexus' or assetInfo.type == 'ply'
+			# 3DHOP-Viewer
 			isNexus = 0
 			if assetInfo.type == 'nexus'
 				isNexus = 1
@@ -125,20 +136,31 @@ class UBHD3DViewerPlugin extends AssetDetail
 				"src": pluginStaticUrl+"/3dhopiframe.html?nexus="+isNexus+"&asset="+assetInfo.url
 			});
 		else
-			if assetInfo.defaults
+			if assetInfo.type == 'rti'
+				# relight-Viewer
 				iframe = CUI.dom.element("iframe", {
-					id: "threeiframe",
+					id: "rtiiframe",
 					"frameborder": "0",
 					"scrolling": "no",
-					"src": pluginStaticUrl+"/threeiframe.html?asset="+assetInfo.url+"."+assetInfo.extension+"&config="+assetInfo.defaults
+					"style": "width: 100%; height: 100%;",
+					"src": pluginStaticUrl+"/rtiiframe.html?asset="+assetInfo.url
 				});
 			else
-                                iframe = CUI.dom.element("iframe", {
-                                        id: "threeiframe",
-                                        "frameborder": "0",
-                                        "scrolling": "no",
-                                        "src": pluginStaticUrl+"/threeiframe.html?asset="+assetInfo.url+"."+assetInfo.extension
-                                });
+				# three.js-basierter Viewer
+				if assetInfo.defaults
+					iframe = CUI.dom.element("iframe", {
+						id: "threeiframe",
+						"frameborder": "0",
+						"scrolling": "no",
+						"src": pluginStaticUrl+"/threeiframe.html?asset="+assetInfo.url+"."+assetInfo.extension+"&config="+assetInfo.defaults
+					});
+				else
+					iframe = CUI.dom.element("iframe", {
+						id: "threeiframe",
+						"frameborder": "0",
+						"scrolling": "no",
+						"src": pluginStaticUrl+"/threeiframe.html?asset="+assetInfo.url+"."+assetInfo.extension
+					});
 
 		viewerDiv.appendChild(iframe)
 		CUI.dom.append(@outerDiv, viewerDiv)

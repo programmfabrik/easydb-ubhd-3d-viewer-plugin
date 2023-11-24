@@ -37,6 +37,24 @@ EXTRA_FILES = \
         $(WEB)/GLTFLoader.js \
         $(WEB)/ubhd-3d-viewer.js \
         $(WEB)/ubhd-3d-viewer.css \
+        $(WEB)/rtiiframe.html \
+        $(WEB)/relight/js/hammer.min.js \
+        $(WEB)/relight/js/relight-core.js \
+        $(WEB)/relight/js/relight-shaders.js \
+        $(WEB)/relight/js/relight-canvas.js \
+        $(WEB)/relight/js/relight-interface.js \
+        $(WEB)/relight/css/relight.css \
+        $(WEB)/relight/css/skins/dark/home.png \
+        $(WEB)/relight/css/skins/dark/zoomin.png \
+        $(WEB)/relight/css/skins/dark/zoomout.png \
+        $(WEB)/relight/css/skins/dark/rotate.png \
+        $(WEB)/relight/css/skins/dark/light_on.png \
+        $(WEB)/relight/css/skins/dark/light.png \
+        $(WEB)/relight/css/skins/dark/normals.png \
+        $(WEB)/relight/css/skins/dark/normals_on.png \
+        $(WEB)/relight/css/skins/dark/full.png \
+        $(WEB)/relight/css/skins/dark/full_on.png \
+        $(WEB)/relight/css/skins/dark/help.png \
 
 
 # XXX: unavailable languages

@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="relight/css/relight.css">
+    <style>
+      html, body { width:100%; height:100%; padding:0px; margin:0px; }
+      #relight { width:100%; height:100%; }
+    </style>
+  </head>
+  <body>
+    <div id="relight"></div>
+  </body>
+
+  <script src="relight/js/hammer.min.js"></script>
+  <script src="relight/js/relight-core.js"></script>
+  <script src="relight/js/relight-shaders.js"></script>
+  <script src="relight/js/relight-canvas.js"></script>
+  <script src="relight/js/relight-interface.js"></script>
+  <!-- <script src="relight-viewer.min.js"></script> -->
+  <script>
+
+  function resize(relight) {
+    console.log('relight resize')
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    relight.resize(w,h)
+  }
+
+  var url = window.location.search.substring(7);
+  var relight = new RelightViewer('#relight', 
+	{ 
+	  layers: [ 
+		{
+			position: [0, 0],
+			rotation: 0, 
+			//scale: 1,
+			url: url,
+			layout: 'image', 
+			visible: true,
+			//scale: 0,
+		}
+	  ],
+	  fit: true,
+	  pos: { x:0, y:0, z:0, a:0 },
+	  rotation: 0,
+	  pagemap: { size:200, autohide:1000 },  
+	  scale: 1.0,
+	  background: [0.7, 0.7, 0.7, 1]
+	});
+	  
+  resize(relight)
+
+  window.onresize = function(event) {
+    resize(relight) 
+  }
+  </script>
+</html>
