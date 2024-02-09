@@ -31,10 +31,6 @@ EXTRA_FILES = \
         $(WEB)/3DHOP/minimal/js/trackball_turntable_pan.js \
         $(WEB)/3DHOP/minimal/js/trackball_pantilt.js \
         $(WEB)/init_3dhop_easydb.js \
-        $(WEB)/ziploader.min.js \
-        $(WEB)/three.js \
-        $(WEB)/OrbitControls.js \
-        $(WEB)/GLTFLoader.js \
         $(WEB)/ubhd-3d-viewer.js \
         $(WEB)/ubhd-3d-viewer.css \
         $(WEB)/rtiiframe.html \
