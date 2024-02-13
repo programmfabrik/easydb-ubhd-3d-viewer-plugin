@@ -26027,10 +26027,7 @@ class Config {
     this.defaultConfig = defaultConfig2;
     this.applyData(defaultConfig2);
     if (this.configFilePath) {
-      console.log(this.defaultConfig);
       let customConfig = this.getCustomConfig(this.configFilePath);
-      console.log(customConfig);
-      console.log(this.getObjectDiff(this.defaultConfig, customConfig));
       this.applyData(customConfig);
       this.updateData(defaultConfig2, customConfig);
     }
@@ -28062,8 +28059,9 @@ class UBHD3DViewer {
     this.canvas = canvas;
     this.assetUrl = assetUrl2 ? assetUrl2 : this.getURLSearchParams("asset");
     this.configFilePath = configFilePath2 ? configFilePath2 : this.getURLSearchParams("config");
-    if (!this.validateURL(this.assetUrl)) {
-      document.getElementById("errors").innerHTML = "Requirements not fulfilled! Check console log.";
+    if (!this.requirementsFulfilled(this.assetUrl)) {
+      console.log("[UBHD3DViewer] Asset URL:", this.assetUrl);
+      console.log("[UBHD3DViewer] Please specify the path to the asset as URL parameter.");
     } else {
       this.config = new Config(defaultConfig);
       this.sizes = new Sizes();
@@ -28112,15 +28110,13 @@ class UBHD3DViewer {
     }
   }
   requirementsFulfilled(assetUrl2) {
-    let validWindowUrl = validateURL(window.location);
-    let validAssetUrl = validateURL(assetUrl2);
-    console.log("validAssetUrl", validAssetUrl);
-    console.log("validWindowUrl", validWindowUrl);
+    let validWindowUrl = this.validateURL(window.location);
+    let validAssetUrl = this.validateURL(assetUrl2);
     if (validAssetUrl === void 0) {
-      console.log("Please specify the path to the asset as URL parameter.");
+      document.getElementById("errors").innerHTML = "Please specify the path to the asset as URL parameter.";
       return false;
     } else if (!validAssetUrl || validAssetUrl.origin !== validWindowUrl.origin) {
-      console.log("Unkown asset URL.");
+      document.getElementById("errors").innerHTML = "Unkown asset URL.";
       return false;
     } else {
       return true;
