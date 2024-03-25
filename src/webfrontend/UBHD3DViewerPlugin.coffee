@@ -44,11 +44,12 @@ class UBHD3DViewerPlugin extends AssetDetail
 						console.log('3d format not allowed')
 				else
 					# Viewer anbieten, wenn
-					# Version zip-Format mit Namen "gltf"
-					if version.name == 'gltf' and version.class_extension == 'archive.zip'
+					# Version zip-unpack-Format mit Namen "gltf" (gltf-Datei benötigt dann festen Namen model.gltf innerhalb der zip-Datei)
+					if version.name == 'gltf' and version.class_extension == 'archive.unpack.zip'
 						assetInfo.type = 'gltf'
 						if typeof version.versions.original?.download_url != 'undefined'
-							assetInfo.url = version.versions.original?.download_url
+							assetInfo.url = version.versions.directory?.url
+							assetInfo.url += '/model.gltf'
 							assetInfo.extension = version.versions.original?.extension
 						else
 							console.log('3d format not allowed')
@@ -62,8 +63,8 @@ class UBHD3DViewerPlugin extends AssetDetail
 								assetInfo.extension = version.versions.original?.extension
 						else
 							# Viewer anbieten, wenn
-							# Version zip-webdvd-Format mit Namen "rti"
-							if version.name == 'rti' and version.class_extension == 'archive.webdvd.zip'
+							# Version zip-unpack-Format mit Namen "rti"
+							if version.name == 'rti' and version.class_extension == 'archive.unpack.zip'
 								assetInfo.type = 'rti'
 								if typeof version.versions.directory?.url != 'undefined'
 									assetInfo.url = version.versions.directory?.url
