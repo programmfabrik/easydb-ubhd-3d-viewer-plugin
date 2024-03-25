@@ -11,10 +11,11 @@ developers.
 
 The plugin works roughly as follows (If one of these conditions is met, the following are no longer checked):
 
- * If a Nexus file (.nxs or .nxz) is found among the file variants of an asset, the 3DHOP viewer is invoked with this file.
- * If a ply model (.ply) is found among the file variants of an asset and the version name (explicitly named so by the user) is "ply", the 3DHOP viewer is invoked with this file. The check for the version name is done so that very large ply models are not automatically passed to the viewer, which may cause the user's browser to freeze.
- * If a zip file (.zip) is found among the file variants and the version name (explicitly named so by the user) is "gltf", the three.js based viewer is invoked with this file. **The zip variant may not be supported in the future and must be considered deprecated.**
- * If a glb (binary variant of gltf) model is found among the file variants of an asset, the three.js based viewer is invoked with this file.
+ * If a **Nexus file (.nxs or .nxz)** is found among the file variants of an asset, the **3DHOP viewer** is invoked with this file.
+ * If a **ply model (.ply)** is found among the file variants of an asset and the version name (explicitly named so by the user) is "ply", the **3DHOP viewer** is invoked with this file. The check for the version name is done so that very large ply models are not automatically passed to the viewer, which may cause the user's browser to freeze.
+ * If a zip file with directory access (.unpack.zip) is found among the file variants and the version name (explicitly named so by the user) is "gltf", the **three.js based viewer** is invoked with this file. **Attention: Within the zip file, the gltf file must be named model.gltf.**
+ * If a **glb (binary variant of gltf) model** is found among the file variants of an asset, the **three.js based viewer** is invoked with this file.
+ * If a zip file with directory access (.unpack.zip) is found among the file variants and the version name (explicitly named so by the user) is "rti", the **Relight rti viewer** is invoked with this file, which should be in the relight format (with info.json, https://vcg.isti.cnr.it/relight/#format)
 
 ## Viewer based on [3D Heritage Online Presenter (3DHOP)](http://vcg.isti.cnr.it/3dhop/index.php)
 
@@ -30,6 +31,11 @@ The plugin expects assets in the **binary form of the glTF format (.glb)** (http
 
 Alternatively it is possible to put a **glTF file (.gltf)** (https://en.wikipedia.org/wiki/GlTF) together with other files (texture etc.) into a zip file. To indicate that a zip archive contains a 3D object in GLTF format, the corresponding asset version must have the name "gltf".
 
+## Viewer based on [Relight](https://vcg.isti.cnr.it/relight/)
+
+Prerequisites:
+zip file in Relight format (see https://vcg.isti.cnr.it/relight/#format)
+
 ## TODOs
 ### Common
  * [ ] adaption to fylr
@@ -37,8 +43,8 @@ Alternatively it is possible to put a **glTF file (.gltf)** (https://en.wikipedi
 ### three.js based viewer
  * [x] add controls
  * [ ] add hints for mouse controls
- * [ ] respect default values for camera settings, lighting etc. in gltf/glb files
- * [ ] respet default values for camera settings, lightning etc. stored in easydb/fylr
+ * [x] respect default values for camera settings, lighting etc. in gltf/glb files
+ * [ ] respect default values for camera settings, lightning etc. stored in easydb/fylr
 
 ### RTI
- * [ ] add RTI viewer
+ * [x] add RTI viewer
